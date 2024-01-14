@@ -1,123 +1,77 @@
-// Tic Tac Toe AI with Minimax Algorithm
-// The Coding Train / Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/154-tic-tac-toe-minimax.html
-// https://youtu.be/I64-UTORVfU
-// https://editor.p5js.org/codingtrain/sketches/0zyUhZdJD
-
-let board = [
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', '']
-];
-
-let w; // = width / 3;
-let h; // = height / 3;
-
-let ai = 'X';
-let human = 'O';
-let currentPlayer = human;
-
-function setup() {
-  createCanvas(400, 400);
-  w = width / 3;
-  h = height / 3;
-  bestMove();
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0c2340; /* Dark blue background */
+    color: #ffffff; /* White text */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-function equals3(a, b, c) {
-  return a == b && b == c && a != '';
+.calculator {
+    text-align: center;
+    padding: 20px;
+    background-color: #001f3f; /* Darker blue */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* White shadow */
 }
 
-function checkWinner() {
-  let winner = null;
-
-  // horizontal
-  for (let i = 0; i < 3; i++) {
-    if (equals3(board[i][0], board[i][1], board[i][2])) {
-      winner = board[i][0];
-    }
-  }
-
-  // Vertical
-  for (let i = 0; i < 3; i++) {
-    if (equals3(board[0][i], board[1][i], board[2][i])) {
-      winner = board[0][i];
-    }
-  }
-
-  // Diagonal
-  if (equals3(board[0][0], board[1][1], board[2][2])) {
-    winner = board[0][0];
-  }
-  if (equals3(board[2][0], board[1][1], board[0][2])) {
-    winner = board[2][0];
-  }
-
-  let openSpots = 0;
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (board[i][j] == '') {
-        openSpots++;
-      }
-    }
-  }
-
-  if (winner == null && openSpots == 0) {
-    return 'tie';
-  } else {
-    return winner;
-  }
+h1 {
+    color: #66d9ef; /* Light blue for the title */
 }
 
-function mousePressed() {
-  if (currentPlayer == human) {
-    // Human make turn
-    let i = floor(mouseX / w);
-    let j = floor(mouseY / h);
-    // If valid turn
-    if (board[i][j] == '') {
-      board[i][j] = human;
-      currentPlayer = ai;
-      bestMove();
-    }
-  }
+label {
+    display: block;
+    margin: 10px 0;
+    color: #66d9ef; /* Light blue for the label */
 }
 
-function draw() {
-  background(255);
-  strokeWeight(4);
+input {
+    padding: 10px;
+    border: 1px solid #66d9ef; /* Light blue border */
+    border-radius: 5px;
+    background-color: #001f3f; /* Darker blue background */
+    color: #ffffff; /* White text */
+    width: 80%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
 
-  line(w, 0, w, height);
-  line(w * 2, 0, w * 2, height);
-  line(0, h, width, h);
-  line(0, h * 2, width, h * 2);
+button {
+    padding: 10px 20px;
+    background-color: #66d9ef; /* Light blue button */
+    color: #001f3f; /* Darker blue text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+input {
+    padding: 10px;
+    border: 1px solid #66d9ef; /* Light blue border */
+    border-radius: 5px;
+    background-color: #001f3f; /* Darker blue background */
+    color: #ffffff; /* White text */
+    width: 80%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    appearance: none; /* Remove spinner buttons */
+    -webkit-appearance: none; /* For older versions of Chrome/Safari */
+}
 
-  for (let j = 0; j < 3; j++) {
-    for (let i = 0; i < 3; i++) {
-      let x = w * i + w / 2;
-      let y = h * j + h / 2;
-      let spot = board[i][j];
-      textSize(32);
-      let r = w / 4;
-      if (spot == human) {
-        noFill();
-        ellipse(x, y, r * 2);
-      } else if (spot == ai) {
-        line(x - r, y - r, x + r, y + r);
-        line(x + r, y - r, x - r, y + r);
-      }
-    }
-  }
+/* Add a custom arrow icon for modern browsers (optional) */
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-  let result = checkWinner();
-  if (result != null) {
-    noLoop();
-    let resultP = createP('');
-    resultP.style('font-size', '32pt');
-    if (result == 'tie') {
-      resultP.html('Tie!');
-    } else {
-      resultP.html(`${result} wins!`);
-    }
-  }
+button:hover {
+    background-color: #004080; /* Slightly darker blue on hover */
+}
+
+p {
+    margin-top: 15px;
+    color: #66d9ef; /* Light blue for the result text */
 }
