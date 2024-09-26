@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.min.js"></script>
-  
-  <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/logo.png" type="image/png">
 </head>
-
 <body>
-  <script src="minimax.js"></script>
-  <script src="sketch.js"></script>
-</body>
+    <div class="calculator">
+        <h1>ENTER A NUMBER</h1>
+        <label for="userInput">Enter a number:</label>
+        <input type="number" id="userInput">
+        <button onclick="calculate()">Calculate</button>
+        <p id="result"></p>
+    </div>
 
+    <script src="script.js"></script>
+</body>
 </html>
